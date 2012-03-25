@@ -131,36 +131,24 @@ Note: the \texttt{\[} and \texttt{\]} commands of BF are assumed to be matching,
 		
 	/*@ The rest of the definition is simply helper functions. */
 	syntax #Nat ::= eightbit "(" K ")"
-	rule 
+	define
 		eightbit(I:#Int) 
 		=> (((I:#Int %Int 256) +Int 256) %Int 256)
 		[structural]
-	
-	// syntax KLabel ::= kcharString
-	// rule 
-		// kcharString(N:#Nat)
-		// => charString(N:#Nat)
-		// [structural]
-
-	syntax KLabel ::= +String
-	rule 
-		+String(S1:#String,, S2:#String) 
-		=> S1:#String +String S2:#String
-		[structural]
 		
-	syntax KLabel ::= firstChar
-	syntax KLabel ::= butFirstChar
-	syntax KLabel ::= charToAscii
+	syntax K ::= firstChar "(" K ")"
+	syntax K ::= butFirstChar "(" K ")"
+	syntax K ::= charToAscii "(" K ")"
 	
-	rule [firstChar]:
+	define [firstChar]:
 		firstChar(S:#String) => substrString(S:#String, 0, 1)
-		 [structural]
-	rule [charToAscii]: 
+		[structural]
+	define [charToAscii]: 
 		charToAscii(C:#Char) => asciiString(C:#Char)
-		 [structural]
-	rule [butFirstChar]: 
+		[structural]
+	define [butFirstChar]: 
 		butFirstChar(S:#String) => substrString(S:#String, 1, lengthString(S:#String))
-		 [structural]
+		[structural]
 	// end helper functions
 endkm
 
